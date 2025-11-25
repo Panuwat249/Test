@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dashboard</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header>
+<h1>Dashboard ข้อมูล</h1>
+<nav>
+<a href="index.html">หน้าแรก</a>
+<a href="add.html">เพิ่มข้อมูล</a>
+<a href="dashboard.html">Dashboard</a>
+</nav>
+</header>
+
+
+<section class="container">
+<h2>สรุปข้อมูลรายประเภท</h2>
+<canvas id="barChart"></canvas>
+
+
+<h2>สัดส่วนสาย North/West</h2>
+<canvas id="pieChart"></canvas>
+</section>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
