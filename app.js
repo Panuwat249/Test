@@ -1,87 +1,83 @@
-function loadData() {
-return JSON.parse(localStorage.getItem('redlineData') || '[]');
-}
-function saveData(data) {
-localStorage.setItem('redlineData', JSON.stringify(data));
+const monthNames = ["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"];
+renderTable(loadData());
 }
 
 
-// Handle form submit
-if (document.getElementById('dataForm')) {
-document.getElementById('dataForm').addEventListener('submit', e => {
-e.preventDefault();
-const data = loadData();
+function renderTable(data){
+const tb = document.querySelector('#dataTable tbody');
+tb.innerHTML = '';
 
 
-data.push({
-year: year.value,
-month: month.value,
-line: line.value,
-type: type.value,
-details: details.value
-});
+data.sort((a,b)=> a.year-b.year || monthNames.indexOf(a.month)-monthNames.indexOf(b.month));
 
 
-saveData(data);
-alert('บันทึกสำเร็จ');
-location.href = 'index.html';
-});
-}
-
-
-// Load table
-if (document.getElementById('dataTable')) {
-const tbody = document.querySelector('#dataTable tbody');
-const data = loadData().sort((a,b)=> a.year-b.year || a.month-b.month);
-
-
-data.forEach((item,i)=>{
+data.forEach((x,i)=>{
 const tr = document.createElement('tr');
 tr.innerHTML = `
-<td>${item.year}</td>
-<td>${item.month}</td>
-<td>${item.line}</td>
-<td>${item.type}</td>
-<td>${item.details}</td>
-<td><button onclick="editData(${i})">แก้ไข</button></td>
+<td>${x.year}</td>
+<td>${x.month}</td>
+<td>${x.line}</td>
+<td>${x.type}</td>
+<td>${x.details}</td>
+<td><button onclick="openEdit(${i})">แก้ไข</button></td>
 <td><button onclick="deleteData(${i})">ลบ</button></td>`;
-tbody.appendChild(tr);
+tb.appendChild(tr);
 });
 }
 
 
 function deleteData(i){
-const data = loadData();
-data.splice(i,1);
-saveData(data);
-location.reload();
+const d = loadData();
+d.splice(i,1);
+saveData(d);
+renderTable(d);
 }
 
 
-function editData(i){
-alert("ระบบแก้ไขสามารถเพิ่มได้ภายหลัง");
+/* Popup Edit */
+let editIndex = null;
+function openEdit(i){
+const d = loadData()[i];
+editIndex = i;
+editYear.value = d.year;
+editMonth.value = d.month;
+editLine.value = d.line;
+editType.value = d.type;
+editDetails.value = d.details;
+document.getElementById('editPopup').style.display = 'flex';
+}
+function closePopup(){ document.getElementById('editPopup').style.display = 'none'; }
+function saveEdit(){
+const d = loadData();
+d[editIndex] = {
+year: editYear.value,
+month: editMonth.value,
+line: editLine.value,
+type: editType.value,
+details: editDetails.value
+};
+saveData(d);
+closePopup();
+renderTable(d);
 }
 
 
-// Dashboard Charts
-if (document.getElementById('barChart')){
-const data = loadData();
-const counts = { TSP:0, TSA:0, TA:0 };
-data.forEach(d=> counts[d.type]++);
+/* Advanced Search */
+function filterData(){
+const y = searchYear.value;
+const m = searchMonth.value;
+const l = searchLine.value;
+const t = searchType.value;
 
 
-new Chart(barChart,{
-type:'bar',
-data:{ labels:['TSP','TSA','TA'], datasets:[{ data:Object.values(counts) }] }
-});
+let data = loadData();
 
 
-const lineCounts = { North:0, West:0 };
-data.forEach(d=> lineCounts[d.line]++);
+if(y) data = data.filter(x=> x.year == y);
+if(m) data = data.filter(x=> x.month == m);
+if(l) data = data.filter(x=> x.line == l);
+if(t) data = data.filter(x=> x.type == t);
 
 
-new Chart(pieChart,{
-type:'pie',
-data:{ labels:['North','West'], datasets:[{ data:Object.values(lineCounts) }] }
-});
+renderTable(data);
 }
