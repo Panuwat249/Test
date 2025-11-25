@@ -28,7 +28,7 @@ function populateMonths(selectId, includeBlank=true){
   monthNames.forEach(m => html += `<option value="${m}">${m}</option>`);
   sel.innerHTML = html;
 }
-function populateYears(selectId, start=2560, end=2580, includeBlank=true){
+function populateYears(selectId, start=2564, end=2580, includeBlank=true){
   const sel = document.getElementById(selectId);
   if(!sel) return;
   let html = includeBlank ? `<option value="">-- เลือกปี --</option>` : '';
@@ -174,7 +174,7 @@ function exportExcel(){
   const data = loadData();
   if(!data.length){ alert('ไม่มีข้อมูลให้ส่งออก'); return; }
   // Build array of arrays with header
-  const header = ['ปี (พ.ศ.)','เดือน','สาย','ประเภท','จำนวน'];
+  const header = ['ปี (พ.ศ.)','เดือน','สาย','ประเภท','จำนวน %'];
   const aoa = [header];
   data.forEach(r => aoa.push([r.year, r.month, r.line, r.type, r.value]));
   const ws = XLSX.utils.aoa_to_sheet(aoa);
@@ -197,7 +197,7 @@ function exportPDF(){
   doc.text('Red Line — รายงานข้อมูล', 40, 40);
   const rows = data.map(d => [d.year, d.month, d.line, d.type, d.value]);
   doc.autoTable({
-    head: [['ปี (พ.ศ.)','เดือน','สาย','ประเภท','จำนวน']],
+    head: [['ปี (พ.ศ.)','เดือน','สาย','ประเภท','จำนวน %']],
     body: rows,
     startY: 60,
     styles: { fontSize: 10 },
