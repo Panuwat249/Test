@@ -5,6 +5,7 @@
   --red-500: #B80000;
   --red-600: #A10000;
   --red-700: #8b0000;
+  --white-500: #ffffff;
   --bg: #fafafa;
   --text: #222;
   --muted: #666;
@@ -32,7 +33,7 @@ h1{
   align-items:center;
   justify-content:space-between;
   padding:12px 20px;
-  background:linear-gradient(90deg,var(--white-500),var(--white-700));
+  background:linear-gradient(90deg,var(--white-500),var(--red-500));
   color:#fff;
 }
 
