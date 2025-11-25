@@ -107,6 +107,16 @@ td .btn{
 /* Buttons link */
 .btn-add, .btn-dashboard, .btn-back, .btn-index {
   background:transparent;
+  color:var(--white-500);
+  border:1px dashed var(--white-500);
+  padding:8px 10px;
+  border-radius:6px;
+  text-decoration:none;
+  font-weight:600;
+}
+
+.btn-back {
+  background:transparent;
   color:var(--red-700);
   border:1px dashed var(--red-500);
   padding:8px 10px;
