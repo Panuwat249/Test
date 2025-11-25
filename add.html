@@ -1,46 +1,39 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>เพิ่มข้อมูล</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>เพิ่มข้อมูล</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>เพิ่มข้อมูล TSP / TSA / TA</h1>
-    <nav>
-      <a href="index.html">หน้าแรก</a>
-      <a href="add.html">เพิ่มข้อมูล</a>
-      <a href="dashboard.html">Dashboard</a>
-    </nav>
-  </header>
+<header>
+<div class="header-inner">
+<h1>เพิ่มข้อมูล TSP / TSA / TA</h1>
+<nav>
+<a href="index.html">หน้าแรก</a>
+<a href="add.html">เพิ่มข้อมูล</a>
+<a href="dashboard.html">Dashboard</a>
+</nav>
+</div>
+</header>
 
-  <section class="container">
-    <form id="dataForm">
-      <label>ปี: <input type="number" id="year" required /></label>
-      <label>เดือน: <input type="number" id="month" required /></label>
-      <label>สาย:
-        <select id="line">
-          <option>North</option>
-          <option>West</option>
-        </select>
-      </label>
-      <label>ประเภท:
-        <select id="type">
-          <option>TSP</option>
-          <option>TSA</option>
-          <option>TA</option>
-        </select>
-      </label>
-      <label>รายละเอียด:
-        <textarea id="details" required></textarea>
-      </label>
 
-      <button type="submit">บันทึกข้อมูล</button>
-    </form>
-  </section>
+<main class="container">
+<form id="dataForm">
+<label>ปี <input type="number" id="year" min="2000" max="2100" required></label>
+<label>เดือน <select id="month"></select></label>
+<label>สาย <select id="line"><option>North</option><option>West</option><option>Red Line</option></select></label>
+<label>ประเภท <select id="type"><option>TSP</option><option>TSA</option><option>TA</option></select></label>
+<label>รายละเอียด <textarea id="details" rows="4" required></textarea></label>
+<div class="form-actions">
+<button type="submit">บันทึก</button>
+<a href="index.html" class="btn-link">ยกเลิก</a>
+</div>
+</form>
+</main>
 
-  <script src="app.js"></script>
+
+<script src="app.js"></script>
 </body>
 </html>
