@@ -1,0 +1,257 @@
+<html>
+<head>
+<style>
+        table, th, td 
+        {
+            margin:10px 0;
+            border:solid 1px #333;
+            padding:2px 4px;
+            font:15px Verdana;
+        }
+        th {
+            font-weight:bold;
+        }
+		
+#loader {
+  border: 16px solid #0B96F7;
+  border-radius: 50%;
+  border-top: 16px solid #FFFF00;
+  border-bottom: 16px solid #FFFF00;
+  width: 30px;
+  height: 30px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  visibility:hidden;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+ </style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script>
+  
+  var script_url = "ใส่ url ของ web app";/////////////////
+  
+//เพิ่มข้อมูล
+  function insert_value() {
+    
+ $("#re").css("visibility","hidden");
+  document.getElementById("loader").style.visibility = "visible";
+ $('#mySpinner').addClass('spinner');
+
+ var id1= $("#id").val();
+ var name= $("#name").val();
+ var nickname= $("#nickname").val();
+ var phone= $("#phone").val();//////////////////
+ 
+ var url = script_url+"?callback=ctrlq&phone="+phone+"&nickname="+nickname+"&name="+name+"&id="+id1+"&action=insert";
+  
+    var request = jQuery.ajax({               
+      crossDomain: true,
+      url: url ,
+      method: "GET",
+      dataType: "jsonp"
+    });
+  }
+//อัปเดทข้อมูล
+  function update_value(){
+ $("#re").css("visibility","hidden");
+     document.getElementById("loader").style.visibility = "visible";
+ 
+ var id1= $("#id").val();
+ var name= $("#name").val();
+ var nickname= $("#nickname").val();
+ var phone= $("#phone").val();///////////////////
+ 
+ var url = script_url+"?callback=ctrlq&phone="+phone+"&nickname="+nickname+"&name="+name+"&id="+id1+"&action=update";
+ 
+    var request = jQuery.ajax({
+      crossDomain: true,
+      url: url ,
+      method: "GET",
+      dataType: "jsonp"
+    });
+  }
+
+//ลบข้อมูล
+  function delete_value(){
+ $("#re").css("visibility","hidden");
+     document.getElementById("loader").style.visibility = "visible";
+  
+ $('#mySpinner').addClass('spinner');
+ var id1= $("#id").val();
+ var name= $("#name").val();
+ var nickname= $("#nickname").val();
+ var phone= $("#phone").val();////////////////////
+ 
+ var url = script_url+"?callback=ctrlq&phone="+phone+"&nickname="+nickname+"&name="+name+"&id="+id1+"&action=delete";
+
+    var request = jQuery.ajax({
+      crossDomain: true,
+      url: url ,
+      method: "GET",
+      dataType: "jsonp"
+    });
+  }
+
+  // print the returned data
+  function ctrlq(e) {
+ $("#re").html(e.result);
+ $("#re").css("visibility","visible");
+ read_value('');
+  }
+  
+function read_value(srch) {
+  
+    $("#re").css("visibility","hidden");
+    document.getElementById("loader").style.visibility = "visible";
+    var url = script_url+"?action=read";
+
+    $.getJSON(url, function (json) {
+    // สร้างตารางแสดงข้อมูล
+        var table = document.createElement("table");
+        table.setAttribute("id", "myTable");
+        var header = table.createTHead();
+  var row = header.insertRow(0);     
+  var cell1 = row.insertCell(0);
+  var cell2 = row.insertCell(1);
+  var cell3 = row.insertCell(2);
+  var cell4 = row.insertCell(3);///////////////////
+  row.style.background = "rgb(243,219,113)";
+ 
+  cell1.innerHTML = "<b>รหัสนักเรียน</b>";
+  cell2.innerHTML = "<b>ชื่อ สกุล</b>";
+  cell3.innerHTML = "<b>ชื่อเล่น</b>";
+  cell4.innerHTML = "<b>เบอร์โทร</b>";//////////////////
+        
+//        alert(json.records);
+        //นำข้อมูลลงในตาราง
+      if (srch!=''){
+        for (var i = 0; i < json.records.length; i++) {
+          
+          if(srch==json.records[i].รหัสนักเรียน){
+            tr = table.insertRow(-1);
+    var tabCell = tr.insertCell(-1);
+    tabCell.innerHTML = json.records[i].รหัสนักเรียน;
+    tabCell = tr.insertCell(-1);
+    tabCell.innerHTML = json.records[i].ชื่อ_สกุล;
+    tabCell = tr.insertCell(-1);
+    tabCell.innerHTML = json.records[i].ชื่อเล่น;
+    tabCell = tr.insertCell(-1);
+    tabCell.innerHTML = json.records[i].เบอร์โทร; //////////////////
+            }
+        }
+         $("#re").html("พบข้อมูล");
+        $("#re").css("visibility","visible");
+      } else {
+         for (var i = 0; i < json.records.length; i++) {
+           
+            tr = table.insertRow(-1);
+    var tabCell = tr.insertCell(-1);
+    tabCell.innerHTML = json.records[i].รหัสนักเรียน;
+    tabCell = tr.insertCell(-1);
+    tabCell.innerHTML = json.records[i].ชื่อ_สกุล;
+    tabCell = tr.insertCell(-1);
+    tabCell.innerHTML = json.records[i].ชื่อเล่น; 
+    tabCell = tr.insertCell(-1);
+    tabCell.innerHTML = json.records[i].เบอร์โทร; ////////////////
+          }
+       }
+        
+        var divContainer = document.getElementById("showData");
+        divContainer.innerHTML = "";
+        divContainer.appendChild(table);
+        document.getElementById("loader").style.visibility = "hidden";
+     $("#re").css("visibility","visible");
+ 
+     $("#id").val("")
+     $("#name").val("")
+     $("#nickname").val("")
+     $("#phone").val("")
+      getData2Input();///////////////////
+    });
+ }
+ ////////////เมื่อมีการคลิกข้อมูลในตาราง
+ function getData2Input(){
+  var table = document.getElementById("myTable");
+  
+  if (table) {
+    for (var i = 0; i < table.rows.length; i++) {
+      table.rows[i].onclick = function() {
+        tableText(this);        
+      }
+    }
+  }
+}
+
+///////////////////ดึงข้อมูลจากชีตมาแสดงในช่องกรอกข้อมูล
+
+function tableText(tableRow) {
+  var id = tableRow.childNodes[0].innerHTML;
+  var name = tableRow.childNodes[1].innerHTML;
+  var nick = tableRow.childNodes[2].innerHTML;
+  var phone = tableRow.childNodes[3].innerHTML;//////////
+  $("#id").val(id)
+  $("#name").val(name)
+  $("#nickname").val(nick)  
+  $("#phone").val(phone)
+  
+}   
+  </script>
+
+</head>
+<body>
+  <div align="center">
+    <img src="ใส่ url ของภาพหัวเว็บ" width="50%">
+    <h3>พัฒนาโดย ครูอภิวัฒน์ สอนสร้างสื่อ</h3>
+    <h3>พัฒนาเพิ่มโดย Witty Dev</h3>
+    
+    <input type="button" style="font-size:12pt;color:white;background-color:#6DA551;border:1px solid #000000;padding:2px" 
+    onclick="read_value('')" value="แสดงข้อมูลทั้งหมด">
+    
+    <input type = "button" style="font-size:12pt;color:white;background-color:#F76326;border:1px solid #000000;padding:2px"  
+    id = "b1" onClick="insert_value()" value = "เพิ่มข้อมูล">
+    
+    <input type="button" style="font-size:12pt;color:white;background-color:#0298F7;border:1px solid #000000;padding:2px" 
+    onclick="update_value()" value="อัปเดทข้อมูล">
+    
+    <input type="button" style="font-size:12pt;color:white;background-color:#975AE0;border:1px solid #000000;padding:2px" 
+    onclick="delete_value()" value="ลบข้อมูล">
+    
+    <a href="ใส่ URL ของชีต?usp=sharing" //////////////
+    target="_blank">ดูข้อมูลในชีต</a>
+    <br><br>
+    
+    ค้นหารหัส
+    <input type = "text" name ="srchID" id="srchID"> &nbsp; <input type="button" style="font-size:12pt;color:white;background-color:red;border:1px solid #000000;padding:2px" 
+    onclick="read_value($('#srchID').val())" value="ค้นหาข้อมูล" />
+    <br> <br>
+
+ <!-- สร้างฟอร์ม -->
+    <form >
+    รหัสนักเรียน
+    <input type = "text" name ="id" id="id">
+    ชื่อ สกุล
+    <input type = "text" name ="name" id="name"><p> 
+    ชื่อเล่น
+    <input type = "text" name ="nickname" id="nickname">
+    เบอร์โทร
+    <input type = "text" name ="phone" id="phone">
+    </form>
+    
+ <!-- เรียกตัว loder มาแสดง-->
+    <div id="loader"></div>
+    <p id="re"></p>
+    <div id="showData"></div>
+    <br> <br>
+</div>
+</body>
+<html>
