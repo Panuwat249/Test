@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>เพิ่มข้อมูล</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header>
+<h1>เพิ่มข้อมูล TSP / TSA / TA</h1>
+<nav>
+<a href="index.html">หน้าแรก</a>
+<a href="add.html">เพิ่มข้อมูล</a>
+<a href="dashboard.html">Dashboard</a>
+</nav>
+</header>
+
+
+<section class="container">
+<form id="dataForm">
+<label>ปี: <input type="number" id="year" required /></label>
+<label>เดือน: <input type="number" id="month" required /></label>
+<label>สาย:
+<select id="line">
+<option>North</option>
+<option>West</option>
+</select>
+</label>
+<label>ประเภท:
+<select id="type">
+<option>TSP</option>
+<option>TSA</option>
+<option>TA</option>
+</select>
+</label>
+<label>รายละเอียด:
+<textarea id="details" required></textarea>
+</label>
+
+
+<button type="submit">บันทึกข้อมูล</button>
+</form>
+</section>
+
+
+<script src="app.js"></script>
+</body>
+</html>
