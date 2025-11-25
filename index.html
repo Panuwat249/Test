@@ -1,28 +1,31 @@
 <!DOCTYPE html>
-<html lang="th">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Red Line Data System</title>
-<link rel="stylesheet" href="style.css" />
-</head>
-<body>
-<header>
-<h1>ระบบจัดการข้อมูล TSP / TSA / TA</h1>
-<nav>
-<a href="index.html">หน้าแรก</a>
-<a href="add.html">เพิ่มข้อมูล</a>
-<a href="dashboard.html">Dashboard</a>
-</nav>
-</header>
 
 
-<section class="container">
-<h2>ข้อมูลทั้งหมด</h2>
+<div class="search-box">
+<select id="searchYear"></select>
+<select id="searchMonth"></select>
+<select id="searchLine">
+<option value="">ทุกสาย</option>
+<option value="North">North</option>
+<option value="West">West</option>
+<option value="Red Line">Red Line</option>
+</select>
+<select id="searchType">
+<option value="">ทุกประเภท</option>
+<option value="TSP">TSP</option>
+<option value="TSA">TSA</option>
+<option value="TA">TA</option>
+</select>
+<button onclick="filterData()">ค้นหา</button>
+</div>
+
+
 <div class="controls">
 <button id="exportExcel">Export Excel</button>
 <button id="exportPDF">Export PDF</button>
 </div>
+
+
 <table id="dataTable">
 <thead>
 <tr>
@@ -38,6 +41,39 @@
 <tbody></tbody>
 </table>
 </section>
+
+
+<!-- Popup Edit -->
+<div id="editPopup" class="popup">
+<div class="popup-content">
+<h3>แก้ไขข้อมูล</h3>
+<label>ปี <input id="editYear" type="number"></label>
+<label>เดือน <select id="editMonth"></select></label>
+<label>สาย
+<select id="editLine">
+<option>North</option>
+<option>West</option>
+<option>Red Line</option>
+</select>
+</label>
+<label>ประเภท
+<select id="editType">
+<option>TSP</option>
+<option>TSA</option>
+<option>TA</option>
+</select>
+</label>
+<label>รายละเอียด
+<textarea id="editDetails"></textarea>
+</label>
+
+
+<div class="popup-buttons">
+<button onclick="saveEdit()">บันทึก</button>
+<button onclick="closePopup()">ยกเลิก</button>
+</div>
+</div>
+</div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
