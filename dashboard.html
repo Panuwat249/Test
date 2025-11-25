@@ -1,6 +1,63 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dashboard</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<header>
+<div class="header-inner">
+<h1>Dashboard ข้อมูล</h1>
+<nav>
+<a href="index.html">หน้าแรก</a>
+<a href="add.html">เพิ่มข้อมูล</a>
+<a href="dashboard.html">Dashboard</a>
+</nav>
+</div>
+</header>
+
+
+<main class="container dashboard-grid">
+<section class="chart-card">
+<h2>จำนวนตามประเภท (Bar)</h2>
+<canvas id="chartType"></canvas>
+</section>
+
+
+<section class="chart-card">
+<h2>งานตามสาย (Doughnut)</h2>
+<canvas id="chartLine"></canvas>
+</section>
+
+
+<section class="chart-card wide">
+<h2>งานต่อเดือน (Stacked / Line)</h2>
+<canvas id="chartMonthly"></canvas>
+</section>
+
+
+<section class="chart-card">
+<h2>งานต่อปี (Line)</h2>
+<canvas id="chartYear"></canvas>
+</section>
+
+
+<section class="chart-controls">
+<label>สีธีม: <input type="color" id="themeColor" value="#B80000"></label>
+<label>เลือกปี: <select id="dashboardYear"></select></label>
+<button id="updateCharts">อัปเดตกราฟ</button>
+</section>
+</main>
+
+
+<script src="app.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="th">
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard</title>
