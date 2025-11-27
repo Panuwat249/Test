@@ -13,7 +13,7 @@ const API_BASE = "https://script.google.com/macros/s/AKfycbyNAFF9yGqIFaKLKgCOfpz
 const API_KEY = "REDLINE_API_KEY"; // e.g. "my_secret_key"
 
 // Polling interval (ms) for near-real-time refresh when using API
-const POLLING_MS = 100000; // 100 seconds
+const POLLING_MS = 1000000; // 100 seconds
 
 /* ---------- Constants / Utils ---------- */
 const STORAGE_KEY = 'redlineData';
